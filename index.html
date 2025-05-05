@@ -45,20 +45,20 @@
             box-shadow: 0 4px 12px rgba(24,144,255,0.3);
             transition: all 0.2s;
         }
- 
+
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(24,144,255,0.4);
         }
- 
+
         button:active {
             transform: translateY(0);
         }
- 
+
         button:disabled {
             background: #d9d9d9;
             cursor: not-allowed;
-         
+        
         #preview {
             margin-top: 20px;
             text-align: center;
@@ -80,36 +80,36 @@
 </head>
 <body>
     <h2>AI 图片生成器</h2>
-     
+    
     <div class="control-group">
         <label for="prompt">提示词:</label>
         <textarea id="prompt" placeholder="请输入图片描述" rows="4"></textarea>
     </div>
- 
+
     <div class="control-group">
         <label for="width">宽度:</label>
         <input type="number" id="width" value="1024" min="100" max="2048">
     </div>
- 
+
     <div class="control-group">
         <label for="height">高度:</label>
         <input type="number" id="height" value="576" min="100" max="2048">
     </div>
- 
+
     <div class="control-group">
         <label for="seed">随机种子:</label>
         <input type="number" id="seed" value="100" min="0">
     </div>
- 
-    <button>生成图片</button>
- 
+
+    <button onclick="generateImage()">生成图片</button>
+
     <div id="preview">
         <h3>图片预览</h3>
         <div id="imageContainer">
             <img id="generatedImage" style="max-width: 100%">
         </div>
     </div>
- 
+
     <script>
         function generateImage() {
             const prompt = document.getElementById('prompt').value;
@@ -117,16 +117,16 @@
             const height = document.getElementById('height').value;
             const seedInput = document.getElementById('seed');
             let seed = parseInt(seedInput.value);
- 
+
             if (!prompt) {
                 alert('请输入提示词');
                 return;
             }
- 
+
             const encodedPrompt = encodeURIComponent(prompt);
-            const imageUrl = `[url]https://image.pollinations.ai/prompt/[/url]${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&model=flux&nologo=true`;
+            const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&model=flux&nologo=true`;
             seedInput.value = seed + 1;
- 
+
             document.getElementById('generatedImage').src = imageUrl;
         }
     </script>
